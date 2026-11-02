@@ -1,23 +1,22 @@
 import { useState } from 'react'
 import './App.css'
-import { Kezdolap } from './components/Kezdolap';
+import { KezdolapEsModerator } from './components/Kezdolap';
 import { Csokoladek } from './data/Csokoladek';
 
 function App() {
   const [oldal, setOldal] = useState("kezdőlap");
-  if (oldal == "kezdőlap") {
-    return (
-      <Kezdolap oldal={oldal} changeOldal={setOldal} csokik={Csokoladek}/>
+  const [csokoladek, setCsokoladek] = useState(Csokoladek);
+  switch (oldal) {
+    case "kezdőlap": return (
+      <KezdolapEsModerator oldal={oldal} changeOldal={setOldal} csokik={csokoladek} setCsokik={setCsokoladek}/>
     )
-  }
-  else if (oldal == "admin") {
-    return (
+    case "admin": return (
       <></>
     )
-
-  }
-  else {
-    return <></>
+    case "moderátor": return (
+      <KezdolapEsModerator oldal={oldal} changeOldal={setOldal} csokik={csokoladek} setCsokik={setCsokoladek}/>
+    )
+    default: console.error("Oldalváltási hiba"); break;
   }
 }
 
